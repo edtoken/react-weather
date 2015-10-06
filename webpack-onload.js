@@ -1,0 +1,1 @@
+function onloadWebpack(){ return {"script":["/main-9e22c279da729d280c3b.js"],"css":{"files":[],"modules":{}},"images":[]}}
