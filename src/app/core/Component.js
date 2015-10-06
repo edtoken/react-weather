@@ -1,6 +1,10 @@
 import React from 'react';
 
-export class Component extends React.Component {
+export default class Component extends React.Component {
+
+	executeAction(name, data, options){
+
+	}
 
 	render(){
 		return(<span></span>);
