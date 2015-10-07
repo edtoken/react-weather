@@ -11,6 +11,4 @@ for(var i in appConfig.configs){
 	allConfigs[appConfig.configs[i]] = require('config/' + appConfig.configs[i]);
 }
 
-console.log('App', App);
-
-new App(allConfigs, node);
+console.log(new App(allConfigs, node));

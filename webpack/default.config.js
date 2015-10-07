@@ -24,8 +24,8 @@ module.exports = {
 	module: {
 		loaders: [
 			{ test: /\.(jpe?g|png|gif|svg)$/, loader: 'url', query: {limit: 10240} },
-			{test: /\.js$/, exclude: /node_modules/, loader: "babel-loader"},
-			{test: /\.jsx$/, exclude: /node_modules/, loader: "babel-loader"},
+			{test: /\.js$/, exclude: /node_modules/, loader: "babel-loader?experimental&optional=runtime"},
+			{test: /\.jsx$/, exclude: /node_modules/, loader: "babel-loader?experimental&optional=runtime"},
 			{ test: /\.json$/, loader: 'json-loader' },
 			{
 				test: /\.scss$/,
@@ -50,7 +50,7 @@ module.exports = {
 			'js',
 			'node_modules'
 		],
-		extensions: ['', '.json', '.js'],
+		extensions: ['', '.json', '.js', '.jsx'],
 
 		alias: {
 			src:path.join(coreDir, './src'),
