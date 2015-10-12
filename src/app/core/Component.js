@@ -13,6 +13,17 @@ export default class BaseComponent extends React.Component {
 	}
 
 	/**
+	 * Выполнить action
+	 * @param name имя
+	 * @param data данные
+	 * @param options опции
+	 * @param done callback
+	 */
+	executeAction(name, data, options, done){
+
+	}
+
+	/**
 	 * используется для вычисления state
 	 * @param props
 	 * @returns {{}}

@@ -3,6 +3,10 @@ import _ from 'underscore';
 var defaultId = 0x00000000000000000000;
 var currentId = defaultId;
 
+/**
+ * сгенерировать новый ID
+ * @returns {number}
+ */
 function getNewId(){
 	return currentId++;
 };
@@ -18,6 +22,11 @@ export default class Database {
 		return {}
 	}
 
+	/**
+	 * Добавить новую модель
+	 * @param obj объект модели
+	 * @returns {number}
+	 */
 	addModel(obj) {
 
 		var name = obj.constructor.name;
@@ -31,6 +40,12 @@ export default class Database {
 		return _id;
 	}
 
+	/**
+	 * вернуть модель по ID
+	 * @param name
+	 * @param id
+	 * @returns {*}
+	 */
 	findById(name, id){
 		if(!this._data[name]){
 			throw 'Model not found';
@@ -38,6 +53,12 @@ export default class Database {
 		return this._data[name].findById(id);
 	}
 
+	/**
+	 * вернуть массив моделей по атрибутам
+	 * @param name
+	 * @param attrs
+	 * @returns {*}
+	 */
 	where(name, attrs){
 		if(!this._data[name]){
 			throw 'Model not found';
@@ -45,6 +66,12 @@ export default class Database {
 		return this._data[name].where(attrs);
 	}
 
+	/**
+	 * получить одну модель по атрибутам
+	 * @param name
+	 * @param attrs
+	 * @returns {*}
+	 */
 	findOne(name, attrs){
 		if(!this._data[name]){
 			throw 'Model not found';

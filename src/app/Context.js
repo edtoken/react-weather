@@ -1,15 +1,21 @@
-import Db from 'extensions/db/';
+import Navigation from 'components/system/Navigation';
 
 /**
  * Global App Context
  */
 export default class Context {
 
-	constructor(data) {
-
-		this.db = new Db({});
+	constructor() {
 		this._storages = {};
 		this._api = {};
+	}
+
+	/**
+	 *
+	 * @param data
+	 */
+	initialize(data){
+		this._db = data.db;
 
 		// создаю хранилища и api
 		for(var i in data.config.storages){
@@ -22,6 +28,8 @@ export default class Context {
 			let storeData = ((data.config.storages[i].name == 'App'))? {configs:data.config} : undefined;
 			this.createStore(data.config.storages[i].name, storeData, {});
 		}
+
+		this.Navigation = new Navigation();
 	}
 
 	/**
@@ -32,7 +40,7 @@ export default class Context {
 	 */
 	createStore(name, data, options, apiList){
 		var StorageClass = require('storages/' + name);
-		this._storages[name.toLowerCase()] = new StorageClass(data, options, this.db);
+		this._storages[name.toLowerCase()] = new StorageClass(data, options);
 	}
 
 	/**
@@ -42,6 +50,14 @@ export default class Context {
 	 */
 	getStore(name){
 		return this._storages[name.toLowerCase()];
+	}
+
+	/**
+	 * Получить DB
+	 * @returns {*}
+	 */
+	getDB(){
+		return this._db;
 	}
 
 }

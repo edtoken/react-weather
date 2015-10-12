@@ -3,10 +3,10 @@ import _ from 'underscore';
 
 export default class BaseModel extends Events {
 
-	constructor(data, options, db) {
+	constructor(data, options) {
 		super();
 
-		this._db = db;
+		this._db = this.getContext().getDB();
 		this.attributes = {};
 		this._attributes = {};
 
@@ -14,7 +14,7 @@ export default class BaseModel extends Events {
 		for (var a in defaults) {
 			if (typeof defaults[a] !== 'function') continue;
 			var childData = data[a] || {};
-			var childModel = new defaults[a](childData, options, db);
+			var childModel = new defaults[a](childData, options);
 			data[a] = childModel;
 		}
 
@@ -39,6 +39,14 @@ export default class BaseModel extends Events {
 		return {};
 	}
 
+	/**
+	 * Установить значение в атрибуты
+	 * учитывая вложенные документы
+	 * @param key
+	 * @param val
+	 * @param options
+	 * @returns {BaseModel}
+	 */
 	set(key, val, options) {
 
 		if (key == null) return this;
@@ -65,7 +73,7 @@ export default class BaseModel extends Events {
 			if (!this._attributes[k]) {
 				changed.push(k);
 			} else {
-				if (this._attributes[k] instanceof Model) {
+				if (this._attributes[k] instanceof BaseModel) {
 					this._attributes[k].set(attrs[k], options);
 					val = prev[k];
 					changed.push(k);
@@ -97,30 +105,56 @@ export default class BaseModel extends Events {
 		return this;
 	}
 
+	/**
+	 * получить атрибут
+	 * @param name
+	 * @returns {*}
+	 */
 	get(name) {
 		return this.attributes[name];
 	}
 
-	initialize() {
-	}
+	/**
+	 * Выполнится после конструктора
+	 */
+	initialize() {}
 
+	/**
+	 * Получить модель по ID
+	 * @param id
+	 * @returns {*}
+	 */
 	findById(id) {
 		return this._db.findById(this.constructor.name, id);
 	}
 
+	/**
+	 * Получить одну (первую) модель по атрибутам
+	 * @param attrs
+	 * @returns {*}
+	 */
 	findOne(attrs) {
 		return this._db.findOne(this.constructor.name, attrs);
 	}
 
+	/**
+	 * получить массив моделей по атрибутам
+	 * @param attrs
+	 * @returns {*}
+	 */
 	where(attrs) {
 		return this._db.where(this.constructor.name, attrs);
 	}
 
-
+	/**
+	 * вернуть json копию представление модели
+	 * (учитывая дочерние документы)
+	 * @returns {*}
+	 */
 	toJSON() {
 		var attr = {};
 		for (var n in this.attributes) {
-			attr[n] = this.attributes[n] instanceof Model ? this.attributes[n].toJSON() : this.attributes[n];
+			attr[n] = this.attributes[n] instanceof BaseModel ? this.attributes[n].toJSON() : this.attributes[n];
 		}
 		return _.clone(attr);
 	}

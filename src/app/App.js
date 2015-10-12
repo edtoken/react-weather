@@ -1,5 +1,6 @@
 import Context from './Context';
 import Router from './Router';
+import Db from 'extensions/db/';
 
 /**
  * Core App
@@ -14,13 +15,14 @@ export default class App {
 		window.__SPA001.fn = {};
 		window.__SPA001.fn.getContext = this.getContext.bind(this);
 
-		this.context = new Context({config:config});
-		this.router = new Router({context:this.context, node:node});
+		this.db = new Db({});
+		this.context = new Context();
+		this.context.initialize({config:config, db:this.db});
+		this.router = new Router({node:node});
 		this.router.start();
 	}
 
 	getContext(){
-		console.log('get', this);
 		return this.context;
 	}
 }

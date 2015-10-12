@@ -1,1 +1,1 @@
-module.exports = [{name:'App', api:['MainApi']}];
+module.exports = [{name:'App', api:['MainApi']}, {name:'Router'}];

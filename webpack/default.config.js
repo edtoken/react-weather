@@ -56,6 +56,7 @@ module.exports = {
 			src:path.join(coreDir, './src'),
 			app:path.join(coreDir, './src/app'),
 			actions:path.join(coreDir, './src/app/actions'),
+			controllers:path.join(coreDir, './src/app/controllers'),
 			api:path.join(coreDir, './src/app/api'),
 			components:path.join(coreDir, './src/app/components'),
 			core:path.join(coreDir, './src/app/core'),

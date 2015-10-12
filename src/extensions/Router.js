@@ -3,7 +3,6 @@ define(function(require){
 	var _ = require('underscore');
 	var EventsClass = require('extensions/Events');
 	var Events = new EventsClass();
-	var extend = require('extend');
 
 	// Routers map faux-URLs to actions, and fire events when routes are
 	// matched. Creating a new one sets its `routes` hash, if not set statically.
@@ -105,8 +104,5 @@ define(function(require){
 
 	});
 
-
-
-	Router.extend = extend;
 	return Router;
 });

@@ -1,4 +1,4 @@
-import BaseComponent from 'core/BaseComponent';
+import BaseComponent from 'core/Component';
 export default class PreloaderComponent {
 
 	render(){

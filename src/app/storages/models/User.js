@@ -1,4 +1,4 @@
-import BaseModel from 'core/BaseModel';
+import BaseModel from 'core/Model';
 
 export default class UserModel extends BaseModel {
 	defaults() {
